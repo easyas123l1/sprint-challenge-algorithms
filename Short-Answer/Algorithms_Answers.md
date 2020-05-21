@@ -6,6 +6,6 @@ a) O(1). Even though this is a loop we will only go thru it twice which is const
 
 b) O(n log n) the first loop iterates thru all of n making it O(n). The second loop is shorter as j grows at a faster rate then n. O(n) \* O(log n) == O(n log n)
 
-c)
+c) O(n) one recursive call not inside of any loop will always be O(n)
 
 ## Exercise II
