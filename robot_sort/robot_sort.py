@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -96,15 +98,41 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # so first we turn the light on this enters first loop
+        self.set_light_on()
+        # we enter the first loop and turn the light off
+        while self.light_is_on():
+            self.set_light_off()
+            # we pick up the first item
+            self.swap_item()
+        # we enter another loop that checks if we can move right
+            while self.can_move_right():
+                # we move right once
+                self.move_right()
+                # we will compare the item we're holding to the item in front of us
+                if self.compare_item() == -1:
+                    # if we get a -1 item in front of us is larger pick it up
+                    self.swap_item()
+                # if we get a 1 we have larger item need to keep iterating *Light On*
+                elif self.compare_item() == 1:
+                    self.set_light_on()
+            # once we get to the last item if we're holding a larger number we want to swap it with the next smallest number IE: 1,4,5 holding 3 should not drop til 1
+            while self.can_move_left():
+                # if 1 the number we are holding is larger drop it.
+                if self.compare_item() == 1:
+                    self.swap_item()
+                # keep moving left til the 2nd to last position.
+                self.move_left()
+            # last position swap to remove None
+            self.swap_item()
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
